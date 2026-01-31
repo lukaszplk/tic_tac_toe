@@ -79,33 +79,45 @@ class Tic_Tac_Toe():
 
         if self.X_wins:
             self.X_score += 1
-            text = 'Winner: Player 1 (X)'
+            text = 'Winner:\nPlayer 1 (X)'  # Split to 2 lines
             color = symbol_X_color
         elif self.O_wins:
             self.O_score += 1
-            text = 'Winner: Player 2 (O)'
+            text = 'Winner:\nPlayer 2 (O)'  # Split to 2 lines
             color = symbol_O_color
         else:
             self.tie_score += 1
-            text = 'Its a tie'
+            text = "It's a tie!"
             color = 'gray'
 
         self.canvas.delete("all")
-        self.canvas.create_text(size_of_board / 2, size_of_board / 3, font="cmr 60 bold", fill=color, text=text)
+        
+        # Dynamic font sizes based on window size - made smaller
+        winner_font_size = int(size_of_board / 15)  # ~40 for 600px (was 50)
+        scores_title_font = int(size_of_board / 20)  # ~30 for 600px
+        scores_font = int(size_of_board / 24)  # ~25 for 600px
+        playagain_font = int(size_of_board / 35)  # ~17 for 600px
+        
+        # Position winner text lower for better visibility
+        self.canvas.create_text(size_of_board / 2, size_of_board / 4, 
+                                font=f"cmr {winner_font_size} bold", fill=color, text=text)
 
-        score_text = 'Scores \n'
-        self.canvas.create_text(size_of_board / 2, 5 * size_of_board / 8, font="cmr 40 bold", fill=Green_color,
+        score_text = 'Scores'
+        self.canvas.create_text(size_of_board / 2, size_of_board / 2, 
+                                font=f"cmr {scores_title_font} bold", fill=Green_color,
                                 text=score_text)
 
-        score_text = 'Player 1 (X) : ' + str(self.X_score) + '\n'
+        score_text = 'Player 1 (X): ' + str(self.X_score) + '\n'
         score_text += 'Player 2 (O): ' + str(self.O_score) + '\n'
-        score_text += 'Tie                    : ' + str(self.tie_score)
-        self.canvas.create_text(size_of_board / 2, 3 * size_of_board / 4, font="cmr 30 bold", fill=Green_color,
+        score_text += 'Tie: ' + str(self.tie_score)
+        self.canvas.create_text(size_of_board / 2, 5 * size_of_board / 8, 
+                                font=f"cmr {scores_font} bold", fill=Green_color,
                                 text=score_text)
         self.reset_board = True
 
-        score_text = 'Click to play again \n'
-        self.canvas.create_text(size_of_board / 2, 15 * size_of_board / 16, font="cmr 20 bold", fill="gray",
+        score_text = 'Click to play again'
+        self.canvas.create_text(size_of_board / 2, 7 * size_of_board / 8, 
+                                font=f"cmr {playagain_font} bold", fill="gray",
                                 text=score_text)
 
     # ------------------------------------------------------------------
